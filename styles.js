@@ -4,7 +4,7 @@ export const styles = (props) => StyleSheet.create({
     textTitle: {
         fontSize: 32,
         fontWeight: 600,
-        color: '#E2E2E2'
+        color: '#E1E1E1'
     },
     textDefault: {
         fontSize: 18,

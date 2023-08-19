@@ -3,6 +3,6 @@ import {TextInput, View} from 'react-native'
 
 export function Input(props){
     return (
-        <TextInput placeholderTextColor={"#FFFFFF5C"} value={props.value} placeholder={props.placeholder} onChangeText={props.onChangeText} style={{height: 60, backgroundColor: '#FFFFFF42', borderWidth: 1, borderStyle: 'solid', borderColor: '#FFFFFF', borderRadius: 12, width: 318, marginBottom: props.mgBottom, padding: 20, fontSize: 18 }}/>
+        <TextInput secureTextEntry={props.secureText}  placeholderTextColor={"#FFFFFF5C"} value={props.value} placeholder={props.placeholder} onChangeText={props.onChangeText} style={{height: 60, backgroundColor: '#FFFFFF42', borderWidth: 1, borderStyle: 'solid', borderColor: '#FFFFFF50', borderRadius: 12, width: 318, marginBottom: props.mgBottom, padding: 20, fontSize: 18, color: '#E2E2E2'}}/>
     )
 }
