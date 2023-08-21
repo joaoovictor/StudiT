@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 export const styles = (props) => StyleSheet.create({
     textTitle: {
         fontSize: 32,
-        fontWeight: 600,
+        fontWeight: 800,
         color: '#E1E1E1'
     },
     textDefault: {
@@ -24,7 +24,7 @@ export const styles = (props) => StyleSheet.create({
     textMediumText: {
         fontSize: 24,
         color: '#E2E2E2',
-        fontWeight: '400'
+        fontWeight: '500'
     },
     lineSeparator: {
         width: 52,

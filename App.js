@@ -6,6 +6,8 @@ import { Button } from './src/components/Button.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Login } from './src/screens/Login';
+import { Cadastro } from './src/screens/Cadastro';
+import { PrimeiraTela } from './src/screens/PrimeiraTela';
 
 function ScreenUnlogged({ navigation }){
   return (
@@ -18,7 +20,7 @@ function ScreenUnlogged({ navigation }){
         <Text style={[styles({flex: ""}).textDefault, {textAlign: 'center', width: 280}]}>Tenha em seu dispositivo móvel suas principais ferramentas de estudo.</Text>
         <View style={styless.divButtons}>
           <Button transparent={false} title="Login" width={174} onPress={() => navigation.navigate('LoginPage')}/>
-          <Button transparent={true} title="Cadastrar" width={174}/>
+          <Button transparent={true} title="Cadastrar" width={174} onPress={() => navigation.navigate('Cadastro')}/>
         </View>
       </View>
       <StatusBar style="auto" />
@@ -32,11 +34,13 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{
+      <Stack.Navigator initialRouteName="PrimeiraTela" screenOptions={{
     headerShown: false
   }}>
         <Stack.Screen name="Home" component={ScreenUnlogged}  />
         <Stack.Screen name="LoginPage" component={Login} />
+        <Stack.Screen name="Cadastro" component={Cadastro} />
+        <Stack.Screen name="PrimeiraTela" component={PrimeiraTela} />
       </Stack.Navigator>
     </NavigationContainer>
   );
