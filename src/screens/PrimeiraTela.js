@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image} from 'react-native'
 import Inicialimg from '../../assets/icon-inicial.png';
 import logo from '../../assets/logoS.png';
 import { Button } from '../components/Button';
+import { useNavigation } from '@react-navigation/native';
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 export function PrimeiraTela({navigation}){

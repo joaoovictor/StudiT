@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
-import { apiFirebase } from "../config/api/firebase";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
 
 
 const auth = FIREBASE_AUTH;
@@ -8,8 +9,8 @@ const auth = FIREBASE_AUTH;
 export const signInFirebase = async (email, senha) => {
   try{
     const response = await signInWithEmailAndPassword(auth, email, senha);
-    console.log(response)
-    alert("Logado!")
+    let dadosString = res
+    AsyncStorage.setItem("@USER", )
   } catch(error) {
     console.error(error)
     alert("lOGIN fALHOU")
@@ -19,7 +20,6 @@ export const signInFirebase = async (email, senha) => {
 export const signUpFirebase = async (email, senha) => {
   try{
     const response = await createUserWithEmailAndPassword(auth, email, senha);
-    console.log(response)
     alert("Cadastro criado com sucesso!")
   } catch(error) {
     console.error(error)
