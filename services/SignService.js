@@ -9,8 +9,6 @@ const auth = FIREBASE_AUTH;
 export const signInFirebase = async (email, senha) => {
   try{
     const response = await signInWithEmailAndPassword(auth, email, senha);
-    let dadosString = res
-    AsyncStorage.setItem("@USER", )
   } catch(error) {
     console.error(error)
     alert("lOGIN fALHOU")
