@@ -7,6 +7,7 @@ import { styles } from '../../styles'
 import { Input } from '../components/Input'
 import { Octicons } from '@expo/vector-icons';
 import { Button } from '../components/Button';
+import { signInFirebase } from '../../services/SignService'
 
 export function Login(){
     const [email, setEmail] = useState("")
@@ -29,13 +30,13 @@ export function Login(){
             </View>
 
             <View>
-                <Button title={"Entrar"} width={318}/>
+                <Button title={"Entrar"} width={318} onPress={() => signInFirebase(email, senha)}/>
             </View>
 
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', width: '100%'}}>
                 <View style={styles("").lineSeparator}></View>
 
-                <Text style={styles("").textDefault}>Ou continue com</Text>
+                <Text style={{fontWeight: 800, color: '#e2e2e2', fontSize: 16}}>Ou continue com</Text>
 
                 <View style={styles("").lineSeparator}></View>
             </View>

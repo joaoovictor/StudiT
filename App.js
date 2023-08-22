@@ -1,60 +1,57 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View, Image} from 'react-native';
-import ImgGirl from './assets/girlwithbooks.png'
-import { styles } from './styles.js';
-import { Button } from './src/components/Button.js';
+import React, {useState, useEffect} from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Login } from './src/screens/Login';
+import { Cadastro } from './src/screens/Cadastro';
+import { PrimeiraTela } from './src/screens/PrimeiraTela';
+import { Homescreen } from './src/screens/Homescreen';
+import { ScreenUnlogged } from './src/screens/ScreenUnlogged';
+import { onAuthStateChanged } from 'firebase/auth';                                                                                                                                                            
+import { FIREBASE_AUTH } from './FirebaseConfig';
+const Stack = createStackNavigator();
+const InsideStack = createStackNavigator();
+const OutStack = createStackNavigator();
 
-function ScreenUnlogged({ navigation }){
+function OutLayout() {
   return (
-    <View style={styless.container}>
-      <View style={[styles({flex: 1}).divTopHalfRadius, styles("").center]}>
-        <Image source={ImgGirl}/>
-      </View>
-      <View style={styless.divBottom}>
-        <Text style={styles({flex: ""}).textTitle}>Tome o controle</Text>
-        <Text style={[styles({flex: ""}).textDefault, {textAlign: 'center', width: 280}]}>Tenha em seu dispositivo móvel suas principais ferramentas de estudo.</Text>
-        <View style={styless.divButtons}>
-          <Button transparent={false} title="Login" width={174} onPress={() => navigation.navigate('LoginPage')}/>
-          <Button transparent={true} title="Cadastrar" width={174}/>
-        </View>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+      <OutStack.Navigator initialRouteName="PrimeiraTela" screenOptions={{
+        headerShown: false
+      }}>
+         <OutStack.Screen name="Home" component={ScreenUnlogged}  />
+        <OutStack.Screen name="LoginPage" component={Login} />
+        <OutStack.Screen name="Cadastro" component={Cadastro} />
+        <OutStack.Screen name="PrimeiraTela" component={PrimeiraTela} />
+      </OutStack.Navigator>
   )
 }
 
-const Stack = createStackNavigator();
-
+function InsideLayout() {
+  return (
+    <InsideStack.Navigator initialRouteName="HomeScreen" screenOptions={{
+      headerShown: false
+    }}>
+      <InsideStack.Screen name="HomeScreen" component={Homescreen}/>
+    </InsideStack.Navigator>
+  )
+}
 
 export default function App() {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      setUser(user)
+    })
+  }, [])
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{
+      <Stack.Navigator  screenOptions={{
     headerShown: false
-  }}>
-        <Stack.Screen name="Home" component={ScreenUnlogged}  />
-        <Stack.Screen name="LoginPage" component={Login} />
+  }}> 
+       {user ? (<Stack.Screen name="Inside" component={InsideLayout}/>) : (<Stack.Screen name="Out" component={OutLayout}/>)}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styless = StyleSheet.create({
-  container: {
-    flex: 1,
-   backgroundColor: '#3A3446'
-  },
-divBottom: {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'space-around'
-},
-divButtons: {
-  width: '100%',
-  flexDirection: 'row',
-  justifyContent: 'space-evenly'
-}
-})
