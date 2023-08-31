@@ -8,6 +8,7 @@ import Avatar from '../components/Avatar'
 import { TransparentInputWithIcon } from '../components/TransparentInputWithIcon'
 import { BoxTransparentWithImage } from '../components/BoxTransparentWithImage'
 import { menuItems } from '../../utils/mocks'
+import { BoxTransparentThreeTexts } from '../components/BoxTransparentThreeTexts'
 
 export function Homescreen() {
   const [usuarioLogado, setUsuarioLogado] = useState(null);
@@ -25,8 +26,8 @@ export function Homescreen() {
   }, [])
 
   return (
-    <View style={stylesHome.main}>
-      <View style={[styles({ flex: 1.4 }).divTopHalfRadius, { justifyContent: 'space-between'}]}>
+    <ScrollView style={stylesHome.main}>
+      <View style={[styles({ flex: 1.0 }).divTopHalfRadius, { justifyContent: 'space-between'}]}>
         <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-evenly', marginTop: 70 }}>
           <Avatar source="https://catracalivre.com.br/wp-content/uploads/2017/05/sheldon_cooper.jpg" size={60} />
           <Text style={stylesHome.headerText}><Text style={stylesHome.headerBoldText}>Olá {usuarioLogado ? usuarioLogado.displayName : ""},</Text> bom te ver!</Text>
@@ -52,11 +53,41 @@ export function Homescreen() {
         </ScrollView>
       </View>
 
-      <View>
-
+      <View style={stylesHome.viewRecentActivity}>
+        <Text style={[styles("").textDefault, {marginLeft: 20, fontSize: 22}]}>Atividade Recente</Text>
+        <View style={stylesHome.centeredBox}>
+          <BoxTransparentThreeTexts 
+            title="Simulado" 
+            subtitle="Química" 
+            subtitle2="Radioatividade"/>
+        </View>
+        <View style={stylesHome.centeredBox}>
+          <BoxTransparentThreeTexts 
+            title="Simulado" 
+            subtitle="Química" 
+            subtitle2="Radioatividade"/>
+        </View>
+        <View style={stylesHome.centeredBox}>
+          <BoxTransparentThreeTexts 
+            title="Simulado" 
+            subtitle="Química" 
+            subtitle2="Radioatividade"/>
+        </View>
+        <View style={stylesHome.centeredBox}>
+          <BoxTransparentThreeTexts 
+            title="Simulado" 
+            subtitle="Química" 
+            subtitle2="Radioatividade"/>
+        </View>
+        <View style={stylesHome.centeredBox}>
+          <BoxTransparentThreeTexts 
+            title="Simulado" 
+            subtitle="Química" 
+            subtitle2="Radioatividade"/>
+        </View>
       </View>
       <StatusBar style="auto" />
-    </View>
+    </ScrollView>
   )
 }
 
@@ -67,7 +98,7 @@ const stylesHome = StyleSheet.create({
   },
 
   secondView: {
-    flex: 3,
+    flex: 1,
     marginTop: 20
   },
 
@@ -82,7 +113,20 @@ const stylesHome = StyleSheet.create({
     color: '#3A344680',
     maxWidth: 280
   },
+
   scrollView: {
-    marginLeft: 10
-  }
+    paddingLeft: 10 
+  },
+ 
+  viewRecentActivity: {
+    flex: 1,
+    paddingTop: 20, // Ajuste o espaçamento superior conforme necessário
+  }, 
+  centeredBox: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+  },
 })
