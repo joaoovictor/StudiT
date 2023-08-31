@@ -41,5 +41,9 @@ export const styles = (props) => StyleSheet.create({
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center'
+    }, 
+
+    gap: {
+        gap: props.gap
     }
 })
