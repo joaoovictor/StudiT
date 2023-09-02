@@ -22,7 +22,7 @@ export const styles = (props) => StyleSheet.create({
         justifyContent: 'center'
     },
     textMediumText: {
-        fontSize: 24,
+        fontSize: 22,
         color: '#E2E2E2',
         fontWeight: '500'
     },
@@ -41,5 +41,9 @@ export const styles = (props) => StyleSheet.create({
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center'
+    }, 
+
+    gap: {
+        gap: props.gap
     }
 })
