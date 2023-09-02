@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar'
 import Avatar from '../components/Avatar'
 import { TransparentInputWithIcon } from '../components/TransparentInputWithIcon'
 import { BoxTransparentWithImage } from '../components/BoxTransparentWithImage'
-import { menuItems } from '../../utils/mocks'
+import { menuItems, itemsRecentActivity } from '../../utils/mocks'
 import { BoxTransparentThreeTexts } from '../components/BoxTransparentThreeTexts'
 
 export function Homescreen() {
@@ -55,36 +55,20 @@ export function Homescreen() {
 
       <View style={stylesHome.viewRecentActivity}>
         <Text style={[styles("").textDefault, {marginLeft: 20, fontSize: 22}]}>Atividade Recente</Text>
-        <View style={stylesHome.centeredBox}>
-          <BoxTransparentThreeTexts 
-            title="Simulado" 
-            subtitle="Química" 
-            subtitle2="Radioatividade"/>
-        </View>
-        <View style={stylesHome.centeredBox}>
-          <BoxTransparentThreeTexts 
-            title="Simulado" 
-            subtitle="Química" 
-            subtitle2="Radioatividade"/>
-        </View>
-        <View style={stylesHome.centeredBox}>
-          <BoxTransparentThreeTexts 
-            title="Simulado" 
-            subtitle="Química" 
-            subtitle2="Radioatividade"/>
-        </View>
-        <View style={stylesHome.centeredBox}>
-          <BoxTransparentThreeTexts 
-            title="Simulado" 
-            subtitle="Química" 
-            subtitle2="Radioatividade"/>
-        </View>
-        <View style={stylesHome.centeredBox}>
-          <BoxTransparentThreeTexts 
-            title="Simulado" 
-            subtitle="Química" 
-            subtitle2="Radioatividade"/>
-        </View>
+     
+          {itemsRecentActivity.map((item, index) => (
+            <View style={stylesHome.centeredBox}>
+            <BoxTransparentThreeTexts
+              key={index}
+              img={item.img}
+              title={item.title}
+              subtitle={item.subtitle}
+              subtitle2={item.subtitle2}
+            />
+            </View>
+          ))}
+   
+       
       </View>
       <StatusBar style="auto" />
     </ScrollView>

@@ -1,10 +1,10 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import QuimicaImg from '../../assets/QuimicaIcon.png'
-export function BoxTransparentThreeTexts({title, subtitle, subtitle2, imageWidth, imageHeight}) {
+export function BoxTransparentThreeTexts({title, subtitle, subtitle2, img}) {
   return (
     <View style={styles.main}>
-        <Image source={QuimicaImg} style={{marginLeft: 12}}/>
+        <Image source={img} style={{marginLeft: 12}}/>
         <View>
             <Text style={{color: '#e2e2e2', fontSize: 17, fontWeight: 500}}>{title}</Text>
             <Text style={{color: '#e2e2e2', fontSize: 14, fontWeight: 300}}>{subtitle}</Text>
