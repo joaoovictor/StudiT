@@ -3,17 +3,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { onAuthStateChanged } from 'firebase/auth';
-import { FontAwesome, Octicons } from '@expo/vector-icons'; 
+import { FontAwesome, Ionicons } from '@expo/vector-icons'; 
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import { ScreenUnlogged } from './src/screens/ScreenUnlogged';
 import { Login } from './src/screens/Login';
 import { Cadastro } from './src/screens/Cadastro';
 import { PrimeiraTela } from './src/screens/PrimeiraTela';
 import { Homescreen } from './src/screens/Homescreen';
+import Chat from './src/screens/Chat';
 
 const Stack = createStackNavigator();
 const InsideStack = createBottomTabNavigator();
 const OutStack = createStackNavigator();
+
 
 const optionsScreens = {
   homescreen: {
@@ -32,6 +34,12 @@ const optionsScreens = {
     tabBarLabel: "",
     tabBarIcon: () => (
       <FontAwesome name="user-o" size={28}  />
+    )
+  },
+  chat: {
+    tabBarLabel: "",
+    tabBarIcon: () => (
+      <Ionicons name="chatbubbles-outline" size={28}  />
     )
   }
 }
@@ -55,6 +63,8 @@ const tabBarOptions = {
   },
 };
 
+
+
 function OutLayout() {
   return (
     <OutStack.Navigator  initialRouteName="PrimeiraTela" screenOptions={{ headerShown: false }}>
@@ -76,6 +86,7 @@ function InsideLayout() {
       <InsideStack.Screen name="HomeScreen" component={Homescreen} options={optionsScreens.homescreen}/>
       <InsideStack.Screen name="ConfigPage" component={""} options={optionsScreens.config}/>
       <InsideStack.Screen name="UserPage" component={""} options={optionsScreens.user}/>
+      <InsideStack.Screen name="Chat" component={Chat} options={{ ...optionsScreens.chat, tabBarStyle: { height: 0 } }}/>
     </InsideStack.Navigator>
   );
 }

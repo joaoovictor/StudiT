@@ -27,6 +27,7 @@ export function Homescreen() {
 
   return (
     <ScrollView style={stylesHome.main}>
+      <View key="unique-key"> 
       <View style={[styles({ flex: 1.0 }).divTopHalfRadius, { justifyContent: 'space-between'}]}>
         <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-evenly', marginTop: 70 }}>
           <Avatar source="https://catracalivre.com.br/wp-content/uploads/2017/05/sheldon_cooper.jpg" size={60} />
@@ -71,7 +72,9 @@ export function Homescreen() {
        
       </View>
       <StatusBar style="auto" />
+      </View>
     </ScrollView>
+    
   )
 }
 
