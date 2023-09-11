@@ -14,6 +14,7 @@ import { validateEmail, validateSenha } from '../../utils/validations';
 
 export function Cadastro(){
     const [email, setEmail] = useState("")
+    const [nome, setNome] = useState("")
     const [senha, setSenha] = useState("")
     const [confSenha, setConfSenha] = useState("")
     const [emailValido, setEmailValido] = useState(false)
@@ -34,6 +35,7 @@ export function Cadastro(){
             </View>
 
             <View style={{justifyContent: 'space-between'}}>
+                <Input placeholder={"Insira seu nome"} value={nome} onChangeText={setNome} mgBottom={20}/>
                 <Input placeholder={"Insira seu email"} value={email} onChangeText={setEmail} keyboardType="email-address" mgBottom={20}/>
                 <Input secureText={true} placeholder={"Insira sua senha"} value={senha} onChangeText={setSenha} mgBottom={20}/>
                 <Input secureText={true} placeholder={"Confirme sua senha"} value={confSenha} onChangeText={setConfSenha} mgBottom={8}/>
@@ -44,7 +46,7 @@ export function Cadastro(){
                 <Text style={{fontWeight: 600, color: "#F0B86E", display: senhaValida ? "none" : "flex"}}> <AntDesign name="exclamationcircleo" size={15} color="#F0B86E" /> A senha deve ter no minímo 6 caracteres!</Text> 
             </View>
                 <View>
-                    <Button title={"Cadastrar"} width={318} onPress={() => senha === confSenha ? signUpFirebase(email, senha) : alert("As senhas não conferem!")}/>
+                    <Button title={"Cadastrar"} width={318} onPress={() => senha === confSenha ? signUpFirebase(email, senha, nome) : alert("As senhas não conferem!")}/>
                 </View>
                
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', width: '100%'}}>
