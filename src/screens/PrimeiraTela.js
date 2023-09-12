@@ -1,16 +1,14 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image} from 'react-native'
 import Inicialimg from '../../assets/icon-inicial.png';
 import logo from '../../assets/logoS.png';
 import { Button } from '../components/Button';
-import { useNavigation } from '@react-navigation/native';
-import { FIREBASE_AUTH } from '../../FirebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+
 
 
 export function PrimeiraTela({navigation}){
     return (
-        <SafeAreaView style={stylesss.main}>
+        <View style={stylesss.main}>
 
             <View style={{marginBottom: 1}}>
                 <Image source={logo}/>
@@ -27,7 +25,8 @@ export function PrimeiraTela({navigation}){
             <View style={{ marginTop: 50, marginBottom: 14 , marginLeft: 11}}>
                 <Button transparent={false} title="Começar" width={200} onPress={() => navigation.navigate('Home')}/>
             </View>
-        </SafeAreaView>
+            
+        </View>
     )
 }
 

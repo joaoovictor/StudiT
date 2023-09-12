@@ -2,10 +2,27 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View } from 'react-native';
 import { Bubble, GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 import { getGptResponse } from '../../utils/openAiRequests';
+import CosmoDbClient, { createFamilyItem } from '../../services/CosmoDBService.js'
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [messageIdCounter, setMessageIdCounter] = useState(2);
+  
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        text: 'Olá! Como posso ajudar?',
+        createdAt: new Date(),
+        user: {
+          _id: 2, 
+          name: 'StuditBot', 
+        },
+      },
+    ]);
+  }, []);
+
   const handleUserMessage = useCallback(async (userInput) => {
    
     setMessages((previousMessages) => [
@@ -37,6 +54,16 @@ const Chat = () => {
 
     
     setMessageIdCounter(messageIdCounter + 2);
+
+    const obj = {
+      user_id: FIREBASE_AUTH.currentUser.uid,
+      userMessage: userInput,
+      gptMessage: gptResponse
+    }
+
+    console.debug(obj)
+
+    createFamilyItem(obj)
   }, [messageIdCounter]);
 
   async function handleGpt(userInput) {
@@ -44,19 +71,7 @@ const Chat = () => {
     return data;
   }
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Olá! Como posso ajudar?',
-        createdAt: new Date(),
-        user: {
-          _id: 2, 
-          name: 'StuditBot', 
-        },
-      },
-    ]);
-  }, []);
+  
 
   return (
     <View style={{ flex: 1, backgroundColor: '#3A3446' }}>

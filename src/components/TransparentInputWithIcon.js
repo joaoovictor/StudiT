@@ -2,11 +2,11 @@ import { View, StyleSheet, TextInput} from 'react-native'
 import { Feather } from '@expo/vector-icons';
 import React from 'react'
 
-export function TransparentInputWithIcon({placeholderText, width, height, iconName, value, onTextChange}) {
+export function TransparentInputWithIcon({placeholderText, width, height, iconName, value, onTextChange, onPressIcon}) {
   return (
     <View style={style.input} width={width} height={height}>
       <TextInput placeholder={placeholderText} placeholderTextColor="#e2e2e239" onTextChange={onTextChange} value={value} /> 
-      <Feather name={iconName} size={18} color="#545454"/>
+      <Feather name={iconName} size={18} color="#545454" onPress={onPressIcon}/>
     </View>
   )
 }
