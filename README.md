@@ -1,6 +1,6 @@
 # StudiT - Aplicativo React Native
 
-![StudiT Banner](https://imgur.com/a/fK9Mz8V)
+![StudiT Banner](banner2.jpg)
 
 Bem-vindo ao repositório do StudiT, um aplicativo React Native criado para ajudar jovens e professores a gerar exercícios e resumos sobre matérias do ensino brasileiro. Este repositório contém o código-fonte do aplicativo, incluindo o chat e a biblioteca de exercícios e resumos.
 
