@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@azure/cosmos": "^3.17.3",
     "@azure/openai": "^1.0.0-beta.5",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-firebase/app": "^18.3.0",
@@ -21,14 +22,20 @@
     "expo-dev-client": "~2.2.1",
     "expo-status-bar": "~1.4.4",
     "firebase": "^10.2.0",
+    "isomorphic-webcrypto": "^2.3.8",
     "openai": "^4.5.0",
+    "randombytes": "^2.1.0",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-crypto": "^2.2.0",
     "react-native-dotenv": "^3.4.9",
     "react-native-gesture-handler": "~2.9.0",
+    "react-native-get-random-values": "^1.9.0",
     "react-native-gifted-chat": "^2.4.0",
     "react-native-safe-area-context": "4.5.0",
-    "react-native-screens": "~3.20.0"
+    "react-native-screens": "~3.20.0",
+    "react-native-url-polyfill": "^2.0.0",
+    "url": "^0.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

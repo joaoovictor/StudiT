@@ -9,8 +9,10 @@ import { TransparentInputWithIcon } from '../components/TransparentInputWithIcon
 import { BoxTransparentWithImage } from '../components/BoxTransparentWithImage'
 import { menuItems, itemsRecentActivity } from '../../utils/mocks'
 import { BoxTransparentThreeTexts } from '../components/BoxTransparentThreeTexts'
+import { fazerLogout, fazerLogoutFirebase } from '../../services/SignService'
 
 export function Homescreen() {
+
   const [usuarioLogado, setUsuarioLogado] = useState(null);
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export function Homescreen() {
           <Text style={stylesHome.headerText}><Text style={stylesHome.headerBoldText}>Olá {usuarioLogado ? usuarioLogado.displayName : ""},</Text> bom te ver!</Text>
         </View>
         <View style={{ width: '100%', alignItems: 'center', marginBottom: 20}}>
-          <TransparentInputWithIcon width={'90%'} height={60} iconName="mic" placeholderText={"Você tem alguma pergunta?"} />
+          <TransparentInputWithIcon width={'90%'} height={60} iconName="user-x" placeholderText={"Você tem alguma pergunta?"} onPressIcon={fazerLogoutFirebase}/>
         </View>
       </View>
 

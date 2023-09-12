@@ -11,6 +11,7 @@ import { Cadastro } from './src/screens/Cadastro';
 import { PrimeiraTela } from './src/screens/PrimeiraTela';
 import { Homescreen } from './src/screens/Homescreen';
 import Chat from './src/screens/Chat';
+import "react-native-url-polyfill/auto"
 
 const Stack = createStackNavigator();
 const InsideStack = createBottomTabNavigator();
