@@ -1,33 +1,30 @@
 trigger:
-- develop  # Defina a branch da qual você deseja acionar o pipeline
+- main  # Defina a branch da qual você deseja acionar o pipeline
 
-pr: none 
+pr: none  # Desative a compilação automática para pull requests
 
 pool:
-  vmImage: 'macos-latest' 
+  vmImage: 'macos-latest'  # Escolha uma imagem de VM do macOS ou do Windows, dependendo do ambiente que você está direcionando
 
 steps:
 - script: |
-    # Instale a CLI do Expo
+    # Instale o eas-cli
     npm install -g eas-cli
 
     # Instale as dependências do projeto
     npm install
 
-    # Faça o login na sua conta Expo (opcional, necessário se você quiser publicar)
-    expo login -u odavisilva -p arroz1234/
+    # Faça o login na sua conta Expo
+    eas-cli login -u joaoovictor -p Jvo_0304  # Substitua com suas credenciais
 
-    # Execute o build do aplicativo com Expo
-    eas build -p ios
-
-    # Execute o build do aplicativo para Android
-    eas build -p android
-  displayName: 'Compilar aplicativo Expo'
+    # Execute o EAS Build para iOS
+    eas-cli build --platform ios --profile production
+  displayName: 'Compilar aplicativo Expo (iOS)'
 
 - script: |
-    # Faça o login na sua conta Expo (opcional, necessário se você quiser publicar)
-    expo login -u odavisilva -p arroz1234/
+    # Faça o login na sua conta Expo
+    eas-cli login -u joaoovictor -p Jvo_0304  # Substitua com suas credenciais
 
-    # Publique o aplicativo para a Expo
-    expo publish
-  displayName: 'Publicar aplicativo Expo'
+    # Execute o EAS Build para Android
+    eas-cli build --platform android --profile production
+  displayName: 'Compilar aplicativo Expo (Android)'
