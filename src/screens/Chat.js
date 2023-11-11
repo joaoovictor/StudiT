@@ -5,7 +5,7 @@ import { getGptResponse } from '../../utils/openAiRequests';
 import CosmoDbClient, { createFamilyItem } from '../../services/CosmoDBService.js'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 
-const Chat = () => {
+const Chat = ({navigation}) => {
   const [messages, setMessages] = useState([]);
   const [messageIdCounter, setMessageIdCounter] = useState(2);
   
@@ -39,31 +39,42 @@ const Chat = () => {
 
     const gptResponse = await handleGpt(userInput);
 
-    setMessages((previousMessages) => [
-      {
-        _id: messageIdCounter + 1,
-        text: gptResponse,
-        createdAt: new Date(),
-        user: {
-          _id: 2, 
-          name: 'StuditBot', 
+    if(gptResponse.type == "resumo"){
+      setMessages((previousMessages) => [
+        {
+          _id: messageIdCounter + 1,
+          text: gptResponse.content,
+          createdAt: new Date(),
+          user: {
+            _id: 2, 
+            name: 'StuditBot', 
+          },
         },
-      },
-      ...previousMessages,
-    ]);
-
-    
-    setMessageIdCounter(messageIdCounter + 2);
-
-    const obj = {
-      user_id: FIREBASE_AUTH.currentUser.uid,
-      userMessage: userInput,
-      gptMessage: gptResponse
+        ...previousMessages,
+      ]);
+  
+      
+      setMessageIdCounter(messageIdCounter + 2);
+      const currentDate = new Date();
+      const obj = {
+        user_id: FIREBASE_AUTH.currentUser.uid,
+        userMessage: userInput,
+        gptMessage: gptResponse.content,
+        subject: gptResponse.subject,
+        title: gptResponse.title,
+        type: gptResponse.type,
+        date: currentDate.toISOString(),
+      }
+  
+      console.debug(obj)
+  
+      createFamilyItem(obj)
+    } else {
+      const simulados = {...gptResponse, userInput: userInput}
+      navigation.navigate("SimuladoScreen", {simuladosData: simulados})
     }
 
-    console.debug(obj)
-
-    createFamilyItem(obj)
+    
   }, [messageIdCounter]);
 
   async function handleGpt(userInput) {
