@@ -37,6 +37,24 @@ async function createContainer() {
   console.log(`Created container:\n${config.container.id}\n`);
 }
 
+async function upsertFamilyItem(itemBody, itemId = null) {
+  if (itemId) {
+    const { item } = await client
+      .database(databaseId)
+      .container(containerId)
+      .item(itemId)
+      .replace(itemBody);
+    console.log(`Updated family item with id:\n${itemId}\n`);
+  } else {
+    const { item } = await client
+      .database(databaseId)
+      .container(containerId)
+      .items.upsert(itemBody);
+    console.log(`Created family item with id:\n${itemBody.id}\n`);
+  }
+}
+
+
 async function createFamilyItem(itemBody) {
   const { item } = await client
     .database(databaseId)
@@ -110,6 +128,7 @@ export {
   createFamilyItem,
   deleteFamilyItem,
   getItensById,
-  getAllItems
+  getAllItems,
+  upsertFamilyItem
 };
  
