@@ -1,5 +1,5 @@
 trigger:
-- main  # Defina a branch da qual você deseja acionar o pipeline
+- develop  # Defina a branch da qual você deseja acionar o pipeline
 
 pr: none  # Desative a compilação automática para pull requests
 
@@ -8,23 +8,7 @@ pool:
 
 steps:
 - script: |
-    # Instale o eas-cli
-    npm install -g eas-cli
-
-    # Instale as dependências do projeto
     npm install
+    npx expo start
+  displayName: 'Compilar aplicativo Expo'
 
-    # Faça o login na sua conta Expo
-    eas-cli login -u joaoovictor -p Jvo_0304  # Substitua com suas credenciais
-
-    # Execute o EAS Build para iOS
-    eas-cli build --platform ios --profile production
-  displayName: 'Compilar aplicativo Expo (iOS)'
-
-- script: |
-    # Faça o login na sua conta Expo
-    eas-cli login -u joaoovictor -p Jvo_0304  # Substitua com suas credenciais
-
-    # Execute o EAS Build para Android
-    eas-cli build --platform android --profile production
-  displayName: 'Compilar aplicativo Expo (Android)'
