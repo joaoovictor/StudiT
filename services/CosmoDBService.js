@@ -1,6 +1,4 @@
 import { CosmosClient } from "@azure/cosmos";
-
-// Importe sua configuração de Cosmos DB, você pode armazená-la em um arquivo JSON ou em variáveis de ambiente
 import config from "../config/api/cosmosdb.js";
 
 const endpoint = config.endpoint;
@@ -39,6 +37,24 @@ async function createContainer() {
   console.log(`Created container:\n${config.container.id}\n`);
 }
 
+async function upsertFamilyItem(itemBody, itemId = null) {
+  if (itemId) {
+    const { item } = await client
+      .database(databaseId)
+      .container(containerId)
+      .item(itemId)
+      .replace(itemBody);
+    console.log(`Updated family item with id:\n${itemId}\n`);
+  } else {
+    const { item } = await client
+      .database(databaseId)
+      .container(containerId)
+      .items.upsert(itemBody);
+    console.log(`Created family item with id:\n${itemBody.id}\n`);
+  }
+}
+
+
 async function createFamilyItem(itemBody) {
   const { item } = await client
     .database(databaseId)
@@ -47,19 +63,11 @@ async function createFamilyItem(itemBody) {
   console.log(`Created family item with id:\n${itemBody.id}\n`);
 }
 
-async function queryContainer() {
+async function getItensById(id) {
   console.log(`Querying container:\n${config.container.id}`);
 
-  // query to return all children in a family
-  // Including the partition key value of country in the WHERE filter results in a more efficient query
   const querySpec = {
-    query: 'SELECT VALUE r.children FROM root r WHERE r.partitionKey = @country',
-    parameters: [
-      {
-        name: '@country',
-        value: 'USA'
-      }
-    ]
+    query: `SELECT TOP 3 m.id, m.userMessage, m.gptMessage, m.user_id, m.type FROM Messages m WHERE m.user_id = '${id}'`,
   }
 
   const { resources: results } = await client
@@ -67,19 +75,39 @@ async function queryContainer() {
     .container(containerId)
     .items.query(querySpec)
     .fetchAll()
-  for (var queryResult of results) {
+  /* for (var queryResult of results) {
     let resultString = JSON.stringify(queryResult)
     console.log(`\tQuery returned ${resultString}\n`)
-  }
+  } */
+
+  return results
 }
 
-async function deleteFamilyItem(itemBody) {
+async function getAllItems(id){
+  const querySpec = {
+    query: `SELECT m.id, m.userMessage, m.gptMessage, m.user_id, m.type FROM Messages m WHERE m.user_id = '${id}'`,
+  }
+
+  const { resources: results } = await client
+    .database(databaseId)
+    .container(containerId)
+    .items.query(querySpec)
+    .fetchAll()
+  /* for (var queryResult of results) {
+    let resultString = JSON.stringify(queryResult)
+    console.log(`\tQuery returned ${resultString}\n`)
+  } */
+
+  return results
+}
+
+async function deleteFamilyItem(itemId) {
   await client
     .database(databaseId)
     .container(containerId)
-    .item(itemBody.id, itemBody.partitionKey)
-    .delete(itemBody)
-  console.log(`Deleted item:\n${itemBody.id}\n`);
+    .item(itemId) 
+    .delete();
+  console.log(`Deleted item:\n${itemId}\n`);
 }
 
 createDatabase()
@@ -91,11 +119,16 @@ createDatabase()
     console.log(`Completed with error ${JSON.stringify(error)}`);
   });
 
+  
+
 export {
   createDatabase,
   readDatabase,
   createContainer,
   createFamilyItem,
-  queryContainer,
   deleteFamilyItem,
+  getItensById,
+  getAllItems,
+  upsertFamilyItem
 };
+ 

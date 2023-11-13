@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Button, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { FIREBASE_AUTH } from '../../FirebaseConfig'
 import { userData } from '../../utils/asyncStorageUtils'
 import { styles } from '../../styles'
@@ -10,20 +10,32 @@ import { BoxTransparentWithImage } from '../components/BoxTransparentWithImage'
 import { menuItems, itemsRecentActivity } from '../../utils/mocks'
 import { BoxTransparentThreeTexts } from '../components/BoxTransparentThreeTexts'
 import { fazerLogout, fazerLogoutFirebase } from '../../services/SignService'
+import { getItensById } from '../../services/CosmoDBService'
 
 export function Homescreen() {
 
   const [usuarioLogado, setUsuarioLogado] = useState(null);
-
+  const [recentItems, setRecentItems] = useState([])
   useEffect(() => {
-    console.info(FIREBASE_AUTH.currentUser)
+    //console.info(FIREBASE_AUTH.currentUser)
 
     const fetchUserData = async () => {
       const data = await userData();
       setUsuarioLogado(data);
     };
 
+    const fetchRecentItems = async () => {
+      try {
+        const items = await getItensById(FIREBASE_AUTH.currentUser.uid);
+        setRecentItems(items);
+      } catch (error) {
+        console.error("Erro ao obter itens recentes:", error);
+      }
+    };
+    
+
     fetchUserData();
+    fetchRecentItems();
 
   }, [])
 
@@ -56,20 +68,18 @@ export function Homescreen() {
         </ScrollView>
       </View>
 
-      <View style={stylesHome.viewRecentActivity}>
+     <View style={stylesHome.viewRecentActivity}>
         <Text style={[styles("").textDefault, {marginLeft: 20, fontSize: 22}]}>Atividade Recente</Text>
      
-          {itemsRecentActivity.map((item, index) => (
-            <View style={stylesHome.centeredBox}>
+        {recentItems && recentItems.map((item, index) => (
+          <View style={stylesHome.centeredBox} key={index}>
             <BoxTransparentThreeTexts
-              key={index}
-              img={item.img}
-              title={item.title}
-              subtitle={item.subtitle}
-              subtitle2={item.subtitle2}
+              title={item.userMessage}
+              subtitle={item.userMessage}
+              subtitle2={item.type}
             />
-            </View>
-          ))}
+          </View>
+        ))}
    
        
       </View>
@@ -109,7 +119,7 @@ const stylesHome = StyleSheet.create({
  
   viewRecentActivity: {
     flex: 1,
-    paddingTop: 20, // Ajuste o espaçamento superior conforme necessário
+    paddingTop: 20, 
   }, 
   centeredBox: {
     flex: 1,

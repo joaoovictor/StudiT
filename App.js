@@ -8,10 +8,12 @@ import { FIREBASE_AUTH } from './FirebaseConfig';
 import { ScreenUnlogged } from './src/screens/ScreenUnlogged';
 import { Login } from './src/screens/Login';
 import { Cadastro } from './src/screens/Cadastro';
-import { PrimeiraTela } from './src/screens/PrimeiraTela';
 import { Homescreen } from './src/screens/Homescreen';
 import Chat from './src/screens/Chat';
 import "react-native-url-polyfill/auto"
+import SimuladoScreen from './src/screens/SimuladoScreen';
+import { PrimeiraTela } from './src/screens/PrimeiraTela';
+import Gallery from './src/screens/Gallery';
 
 const Stack = createStackNavigator();
 const InsideStack = createBottomTabNavigator();
@@ -28,7 +30,7 @@ const optionsScreens = {
   config: {
       tabBarLabel: "",
       tabBarIcon: () => (
-        <FontAwesome name="gear" size={28} />
+        <FontAwesome name="folder-o" size={28} />
       )
   },
   user: {
@@ -64,8 +66,6 @@ const tabBarOptions = {
   },
 };
 
-
-
 function OutLayout() {
   return (
     <OutStack.Navigator  initialRouteName="PrimeiraTela" screenOptions={{ headerShown: false }}>
@@ -85,8 +85,15 @@ function InsideLayout() {
       ...tabBarOptions,
     }}>
       <InsideStack.Screen name="HomeScreen" component={Homescreen} options={optionsScreens.homescreen}/>
-      <InsideStack.Screen name="ConfigPage" component={""} options={optionsScreens.config}/>
-      <InsideStack.Screen name="UserPage" component={""} options={optionsScreens.user}/>
+      <InsideStack.Screen name="Gallery" component={Gallery} options={optionsScreens.config}/>
+      <InsideStack.Screen
+        name="SimuladoScreen"
+        component={SimuladoScreen}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: () => null, 
+        }}
+      />
       <InsideStack.Screen name="Chat" component={Chat} options={{ ...optionsScreens.chat, tabBarStyle: { height: 0 } }}/>
     </InsideStack.Navigator>
   );
