@@ -1,14 +1,24 @@
 trigger:
-- develop  # Defina a branch da qual você deseja acionar o pipeline
-
-pr: none  # Desative a compilação automática para pull requests
+- develop
 
 pool:
-  vmImage: 'macos-latest'  # Escolha uma imagem de VM do macOS ou do Windows, dependendo do ambiente que você está direcionando
+  vmImage: 'macOS-latest'
 
-steps:
-- script: |
-    npm install
-    npx expo start
-  displayName: 'Compilar aplicativo Expo'
-
+jobs:
+- job: Build
+  displayName: 'Build and Publish Artifact'
+  steps:
+  - task: UseNode@1
+    inputs:
+      versionSpec: '14.x'
+      checkLatest: true
+  - script: |
+      npm install -g expo-cli
+      npm install
+      expo build:ios -c
+    displayName: 'Build iOS App'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(System.DefaultWorkingDirectory)/ios/build'
+      artifactName: 'ios-build'
+    displayName: 'Publish iOS Build'
