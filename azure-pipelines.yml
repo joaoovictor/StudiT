@@ -13,9 +13,8 @@ jobs:
       versionSpec: '14.x'
       checkLatest: true
   - script: |
-      npm install -g expo-cli
-      npm install
-      expo build:ios -c
+      npm install -g eas-cli
+      eas build -p ios 
     displayName: 'Build iOS App'
   - task: PublishBuildArtifacts@1
     inputs:
