@@ -6,18 +6,14 @@ pool:
 
 jobs:
 - job: Build
-  displayName: 'Build and Publish Artifact'
+  displayName: 'Publish Artifact'
   steps:
   - task: UseNode@1
     inputs:
       versionSpec: '14.x'
       checkLatest: true
-  - script: |
-      npm install -g eas-cli
-      eas build -p ios 
-    displayName: 'Build iOS App'
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '$(System.DefaultWorkingDirectory)/ios/build'
-      artifactName: 'ios-build'
-    displayName: 'Publish iOS Build'
+      pathtoPublish: '$(System.DefaultWorkingDirectory)'
+      artifactName: 'source-code'
+    displayName: 'Publish Source Code'
